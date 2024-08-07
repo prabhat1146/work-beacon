@@ -1,7 +1,7 @@
-// import Cookies from 'universal-cookie';
+import Cookies from 'universal-cookie';
 
-// const cookies = new Cookies();
-// cookies.set('myCat', 'Pacman');
+const cookies = new Cookies();
+cookies.set('myCat', 'Pacman');
 
 function  postMethod(data,url) {
   
