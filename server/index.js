@@ -9,7 +9,9 @@ const mongoose  = require("mongoose")
 
 const app=express()
 app.use(cookieParser())
-app.use(cors({origin:'http://localhost:3000',credentials: true}))
+APP_URL=process.env.APP_URL
+console.log(APP_URL)
+app.use(cors({origin:APP_URL,credentials: true}))
 // app.options('*',cors({origin:'http://localhost:3000'},{credentials: true}))
 app.use(express.json())
 const port=process.env.PORT || 3000
