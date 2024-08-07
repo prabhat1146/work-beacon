@@ -1,7 +1,7 @@
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
-cookies.set('myCat', 'Pacman');
+// const cookies = new Cookies();
+// cookies.set('myCat', 'Pacman');
 
 function  postMethod(data,url) {
   
@@ -10,7 +10,7 @@ if(!data){
 }
   const handleSubmit = async (e) => {
     // e.preventDefault();
-    console.log('post.js',data)
+    console.log('post.js',data,url)
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'include',
