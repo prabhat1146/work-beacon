@@ -105,7 +105,8 @@ const postJob = async (req, res) => {
 }
 const getJob = async (req, res) => {
     const userId=  await req.cookies["userId"]
-    console.log('l',userId)
+    console.log('uid',userId)
+    console.log('cookies',req.cookies)
     if(!userId){
         console.log("user-id not found")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
