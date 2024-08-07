@@ -34,7 +34,7 @@ const login = async (req, res) => {
     console.log(req.body)
     if (user) {
         if (password == user.password) {
-            res.cookie("userId", user?._id, { httpOnly: false, sameSite: 'strict', path: '/' })
+            res.cookie("userId", user?._id, { httpOnly: false, sameSite: 'None', path: '/' })
             console.log('css')
             return res.status(201).json(new ApiResponse(201, user, "login success."));
         }
