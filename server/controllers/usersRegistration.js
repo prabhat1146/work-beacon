@@ -24,6 +24,7 @@ const signUp = async (req, res) => {
     return res.status(501).json(new ApiResponse(501, " ", "Unable to sign-up now./n try after sometime "));
 }
 const login = async (req, res) => {
+    console.log("i am from login")
     const { email, password } = req.body;
 
     if (!email && !password) {
@@ -47,7 +48,8 @@ const login = async (req, res) => {
 }
 
 const logout=async(req,res)=>{
-    res.cookie("userId", " ", { httpOnly: false, sameSite: 'strict', path: '/' })
+    res.clearCookie("userId");
+    // res.cookie("userId", "", { httpOnly: false, sameSite: 'strict', path: '/' })
     return res.status(201).json(new ApiResponse(201, " ", "You have logged out."));
 }
 
