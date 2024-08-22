@@ -48,9 +48,16 @@ const login = async (req, res) => {
 }
 
 const logout=async(req,res)=>{
-    res.clearCookie("userId");
+    const userId = req.cookies["userId"];
+    if(userId){
+
+        res.clearCookie("userId");
+        return res.status(201).json(new ApiResponse(201, " ", "You have logged out."));
+    }
+
+    res.redirect('http://localhost:3000/user/post-jobs');
+
     // res.cookie("userId", "", { httpOnly: false, sameSite: 'strict', path: '/' })
-    return res.status(201).json(new ApiResponse(201, " ", "You have logged out."));
 }
 
 

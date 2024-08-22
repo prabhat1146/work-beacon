@@ -47,7 +47,6 @@ const register = async (req, res) => {
 }
 
 const postJob = async (req, res) => {
-
      //checks for data validity
     // checks for duplicate jobdetails
     //if not, create jobDetails
@@ -103,17 +102,37 @@ const postJob = async (req, res) => {
 
 
 }
+
 const getJob = async (req, res) => {
-    const userId=  await req.cookies["userId"]
-    console.log('uid',userId)
-    console.log('cookies',req.cookies)
-    if(!userId){
-        console.log("user-id not found")
-        return res.status(401).json(new ApiResponse(401," ","please login first"))
-    }
+    // const userId=  await req.cookies["userId"]
+    // console.log('uid',userId)
+    // console.log('cookies',req.cookies)
+    // if(!userId){
+    //     console.log("user-id not found")
+    //     return res.status(401).json(new ApiResponse(401," ","please login first"))
+    // }
     //public job
     // const result=await jobDetails?.find({jobCreator:userId})
     const result=await jobDetails?.find()
+    // console.log(jobDetails)
+    if(result){
+        return res.status(201).json(new ApiResponse(201,result,"success"))
+    }
+    return res.status(500).json(new ApiResponse(501,"","Something went wrong while finding jobs details"))
+
+
+}
+
+const getJobUserId = async (req, res) => {
+    const userId=  await req.cookies["userId"]
+    // console.log('uid',userId)
+    // console.log('cookies',req.cookies)
+    if(!(userId?.toString()?.length==24)){
+        return  res.status(302).json(new ApiResponse(302," ","unauthorized Access"));
+    }
+    //public job
+    // const result=await jobDetails?.find({jobCreator:userId})
+    const result=await jobDetails?.find({jobCreator: userId })
     // console.log(jobDetails)
     if(result){
         return res.status(201).json(new ApiResponse(201,result,"success"))
@@ -504,4 +523,4 @@ const userDeletePostedJob = async (req, res) => {
 
 
 
-module.exports = { cancelJob,joinJob,acceptJob,rejectJob,getJobById,userDeletePostedJob, register, postJob, getJob,userApplyForJob ,userPostedJobs}
+module.exports = {getJobUserId, cancelJob,joinJob,acceptJob,rejectJob,getJobById,userDeletePostedJob, register, postJob, getJob,userApplyForJob ,userPostedJobs}

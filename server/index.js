@@ -1,27 +1,32 @@
-const express=require("express")
-const dotenv=require("dotenv").config()
-const cookieParser=require("cookie-parser")
-// dotenv.config()
-const cors=require("cors")
-const  usersRouter =require("./routes/users.js")
-const connectDB = require("./dbConnection/DBConnection.js")
-const mongoose  = require("mongoose")
+const express = require("express");
+const dotenv = require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const usersRouter = require("./routes/users.js");
+const connectDB = require("./dbConnection/DBConnection.js");
 
-const app=express()
-app.use(cookieParser())
-APP_URL=process.env.APP_URL
-console.log(APP_URL)
-app.use(cors({origin:APP_URL,credentials: true}))
-// app.options('*',cors({origin:'http://localhost:3000'},{credentials: true}))
-app.use(express.json())
-const port=process.env.PORT || 3000
+const app = express();
+const APP_URL = process.env.APP_URL || 'http://localhost:3000';  // Client URL
+const PORT = process.env.PORT || 5000;  // Server port
 
-app.use("/users",usersRouter)
-const dbConnection=connectDB()
+app.use(cookieParser());
 
+// CORS Middleware
+app.use(cors({
+    origin: APP_URL,               // Allow only the specific origin
+    credentials: true,             // Allow credentials (cookies, authorization headers)
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
+app.use(express.json());
 
+// Use your router after the middleware
+app.use("/users", usersRouter);
 
-app.listen(port,()=>{
-    console.log("server is running on port: ",port)
-})
+// Connect to the database
+connectDB();
+
+app.listen(PORT, () => {
+    console.log("Server is running on port:", PORT);
+});
