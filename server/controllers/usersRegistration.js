@@ -46,18 +46,15 @@ const login = async (req, res) => {
     }
 
 }
-
-const logout=async(req,res)=>{
+const logout = async (req, res) => {
     const userId = req.cookies["userId"];
-    if(userId?.toString()?.length==24){
-
+    
+    if (userId && userId.toString().length === 24) {
         res.clearCookie("userId");
-        return res.status(201).json(new ApiResponse(201, " ", "You have logged out."));
+        return res.status(200).json(new ApiResponse(200, "", "You have logged out."));
     }
 
-    res.redirect('http://localhost:3000/user/post-jobs');
-
-    // res.cookie("userId", "", { httpOnly: false, sameSite: 'strict', path: '/' })
+    return res.status(400).json(new ApiResponse(400, "", "Invalid user ID."));
 }
 
 
