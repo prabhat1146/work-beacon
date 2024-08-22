@@ -49,7 +49,7 @@ const login = async (req, res) => {
 
 const logout=async(req,res)=>{
     const userId = req.cookies["userId"];
-    if(userId){
+    if(userId?.toString()?.length==24){
 
         res.clearCookie("userId");
         return res.status(201).json(new ApiResponse(201, " ", "You have logged out."));

@@ -170,7 +170,7 @@ const acceptJob = async (req, res) => {
     // const userId=req.query.userId;
     const userId=req.query.userId;
     // const jobProviderUserId=req.query.providerUserId;
-    if(!jobId && !userId && !jobProviderUserId){
+    if(!jobId && !userId && !(jobProviderUserId?.toString()?.length==24)){
         
         return res.status(401).json(new ApiResponse(401," ","All fields are required"))
     }
@@ -219,7 +219,7 @@ const rejectJob = async (req, res) => {
     // const userId=req.query.userId;
    
     // const jobProviderUserId=req.query.providerUserId;
-    if(!jobId && !userId && !jobProviderUserId){
+    if(!jobId && !userId && !(jobProviderUserId?.toString()?.length==24)){
         
         return res.status(401).json(new ApiResponse(401," ","All fields are required"))
     }
@@ -251,7 +251,7 @@ const joinJob = async (req, res) => {
     //add to provider list
     const userId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!userId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
@@ -318,7 +318,7 @@ const cancelJob = async (req, res) => {
     //add to provider list
     const userId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!userId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
@@ -355,7 +355,7 @@ const completeJob = async (req, res) => {
     //add to provider list
     const userId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!userId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
@@ -396,7 +396,7 @@ const userApplyForJob = async (req, res) => {
     // return res.json({'ck':ck})
     const userId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!userId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
@@ -450,7 +450,7 @@ const userPostedJobs = async (req, res) => {
     //Note: it is a job/works provider
     const jobProviderUserId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!jobProviderUserId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
@@ -481,7 +481,7 @@ const userDeletePostedJob = async (req, res) => {
     //push back to job array to the users
     const jobProviderUserId=  req.cookies["userId"]
     // console.log(req.cookies)
-    if(!jobProviderUserId){
+    if(!(userId?.toString()?.length==24)){
         // console.log("uid")
         return res.status(401).json(new ApiResponse(401," ","please login first"))
     }
